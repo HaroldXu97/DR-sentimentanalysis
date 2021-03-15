@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>Harold's Personal Website</title>
+    <title>PUBG Report</title>
 </head>
 
 <body>
@@ -13,9 +13,9 @@
         <span class="navbar-brand" href="#">Harold</span>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="#">About</a>
-                <a class="nav-link active" href="#">Projects</a>
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="{{ url_for('index') }}">About</a>
+                <a class="nav-link active" href="{{ url_for('projects') }}">Projects</a>
+                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
             </div>
         </div>
     </nav>
@@ -25,25 +25,61 @@
         <h1 class="display-4" style="text-align:center">PUBG Placement Prediction</h1>
     </div>
 
-    <div class="container">
+    <div class="container" style="width: 70%">
         <!-- Introduction -->
         <h2>Introduction</h2>
+        <p>Battle Royale-style video games have taken the world by storm. Players are dropped onto an island
+            empty-handed and must explore, scavenge, and eliminate other players until only one is left standing, all
+            while the play zone continues to shrink. Player Unknown's Battle Grounds (PUBG) has enjoyed massive
+            popularity. In a PUBG game, 100 players start in each match (matchId). They can be on teams (groupId) which
+            get ranked at the end of the game (winPlacePerc)
+            based on how many other teams are still alive when they are eliminated.
+        </p>
+        <p>
+            We will create a model which predicts
+            players' finishing placement based on their final stats, on a scale from 1 (first place) to 0 (last place).
+        </p>
 
         <!-- Dataset -->
         <h2>Dataset</h2>
+        <p>
+            We are provided with 65000 PUBG game stats, formatted so that each row contains one player's post-game
+            stats. The data comes from matches of all types: solos, duos, squads, and custom; there is no guarantee of
+            there being 100 players per match, nor at most 4 player per group. Details can be found from <a
+                href="https://www.kaggle.com/c/pubg-finish-placement-prediction/data">PUBG Dataset</a>.
+        </p>
 
-        <!-- Model -->
-        <h2>Model</h2>
+        <!-- Approach -->
+        <h2>Approach</h2>
+        <p><strong>- Dealing with missing values.</strong> There are few missing values (only 1) in our dataset, so we
+            just drop this row.</p>
+        <p><strong>- Categorical variables.</strong> Feature ‘matchType’ is the only one categorical variable with 16
+            unique values, so we classify this feature to 4 types (‘Solo’, ‘Duo’, ‘Squads’ and ‘Others’) based on
+            frequency, then use get_dummy to transform it to numerical variable.</p>
+        <p><strong>- Feature Scaling.</strong> We standardize features by removing the mean and scaling to unit variance.
+        </p>
+        <p><strong>- Feature selection.</strong> We use LightGBM which is a highly efficient Gradient Boosting Decision
+            Tree to select features.</p>
+        <p><strong>- Parameter Tuning.</strong> GridSearchCV with 3-fold cross validation is utilized for the parameter
+            tuning.</p>
+        <p><strong>- Model Selection.</strong> We split training data into training set and test set with test set size
+            0.1 and select the best of these predictions based on test MAE score. Models including Linear Regression,
+            Lasso Regression, Support Vector Machines Regression, Decision Tree Regression, Gradient Boosting Decision
+            Tree Regression, Random Forest Regression, MLP Regression, and LightGBM Regression are considered.</p>
 
         <!-- Result -->
         <h2>Result</h2>
-
-        <!-- Further -->
-        <h2>Further Discussion</h2>
+        <p>We finally use LightGBM to do the final prediction, which shows lowest Mean Absolute Error score 0.03695.</p>
 
         <!-- Reference -->
         <h2>Reference</h2>
-        <p>Kaggle</p>
+        <p><a href="https://www.kaggle.com/c/pubg-finish-placement-prediction/">Kaggle: PUBG Finish Placement
+                Prediction</a></p>
+
+        <!-- Contributor -->
+        <h2>Contributor</h2>
+        <p><a href="http://hanxilyu.pythonanywhere.com/">Hanxi Lyu</a>, <a href="http://haroldx.pythonanywhere.com/">Hao
+                Xu</a>, Xiaoyu Hu, Yunsen Gu</p>
     </div>
 
 

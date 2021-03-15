@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title>Review Classification Form</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+        <span class="navbar-brand" href="#">Harold</span>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="{{ url_for('index') }}">About</a>
+                <a class="nav-link active" href="{{ url_for('projects') }}">Projects</a>
+                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="jumbotron jumbotron-fluid">
+        <h1 class="display-4" style="text-align:center">Yelp Review Classification Example</h1>
+    </div>
+
+    <div class="container" style="width: 60%;">
+        <h2>Introduction</h2>
+        <p>The example is based on <a href="https://www.yelp.com/dataset">Yelp</a> business review dataset. Hashing
+            vectorizer and Multi-class Logistic Regression is used for this model example. After you write down your own
+            review and submit, you would get predicted label from 1 star to 5 star and corresponding probability for
+            each label. Please submit your true review label after checking the result, which would help the model to be
+            more accurate.</p>
+        <p><strong>Review Example:</strong> The food wasn't that great and the service was okay. We should have just gone. The
+            steak and eggs had no flavor and the potatoes were room temperature. I guess this is what happens when you
+            want breakfast for dinner. The bill was $46 which is fine but if the food was actually good I don't think I
+            would be annoyed.</p>
+
+        <h2>Please enter your review:</h2>
+
+        {% from "_formhelpers.html" import render_field %}
+
+        <form method=post action="/projects/saresult">
+            <dl>
+                {{ render_field(form.yelpreview, cols='60', rows='10') }}
+            </dl>
+            <div style="margin-bottom: 3rem;">
+                <input class="btn btn-primary" type="submit" value='Submit Review' name='submit_btn'>
+            </div>
+        </form>
+
+    </div>
+    <!-- -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

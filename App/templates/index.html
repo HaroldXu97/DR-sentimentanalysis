@@ -13,20 +13,32 @@
         <span class="navbar-brand" href="#">Harold</span>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" href="#">About</a>
-                <a class="nav-link" href="#">Projects</a>
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link active" href="{{ url_for('index') }}">About</a>
+                <a class="nav-link" href="{{ url_for('projects') }}">Projects</a>
+                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
             </div>
         </div>
     </nav>
 
     <div class="jumbotron jumbotron-fluid">
-        <h1 class="display-4" style="text-align:center">Harold XU</h1>
-        <p>Data Scientce | Data Analytics | Statistics</p>
+        <h1 class="display-4" style="text-align: center;">Harold XU</h1>
+        <p style="text-align: center;">Software Development | Data Science | Data Analytics | Statistics</p>
     </div>
 
-    <img src="..." alt="Harold Xu">
-    <p>The website is built for Harold's Projects.</p>
+    <div class="container" style="width: 60%">
+        <h2 style="margin-top: 4rem;">About Author</h2><br/>
+        <p>
+            As a student from the University of Southern California, I am currently pursuing a Master’s in Analytic and
+            doing a part-time internship of platform development in SenseTime. My educational experience has equipped me
+            with knowledge including data mining, machine learning and deep learning. Additionally, I am familiar with
+            basic computer knowledge, database, operating system and programming languages like Python, R, C++, Go.
+        </p>
+        <p>
+            I also attended several Kaggle competitions out of interest and did some web development projects, part of
+            which has been shown in <a href="{{ url_for('projects') }}">Projects</a> link.
+        </p>
+
+    </div>
 
     <!-- -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

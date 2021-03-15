@@ -13,42 +13,74 @@
         <span class="navbar-brand" href="#">Harold</span>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="#">About</a>
-                <a class="nav-link active" href="#">Projects</a>
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="{{ url_for('index') }}">About</a>
+                <a class="nav-link active" href="{{ url_for('projects') }}">Projects</a>
+                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Title -->
     <div class="jumbotron jumbotron-fluid">
-        <h1 class="display-4" style="text-align:center">Yelp Sentiment Analysis</h1>
+        <h1 class="display-4" style="text-align:center">Yelp Review Sentiment Analysis</h1>
     </div>
 
-    <div class="container">
+    <div class="container" style="width: 65%; margin-bottom: 3rem;">
         <!-- Introduction -->
         <h2>Introduction</h2>
+        <p>The project is of ISE 590 Directed Research from University of Southern California. In this project, we would
+            apply sentiment analysis to <a href="https://www.yelp.com/dataset">Yelp</a> business review dataset with
+            five outcome classes and a web application would be implemented with the machine learning model. Three
+            models including Multinomial Naive Bayes Classifier, Multi-class Logistic Regression and LightGBM are
+            considered. For online learning, only <code>SGDClassifier</code> with <code>partial_fit</code> function is embedded into the website,
+            which is equivalent to Logistic Regression with SGD training. If you are interested in this model, you can
+            try <a href="{{ url_for('saform') }}">this</a> link.</p>
 
         <!-- Dataset -->
         <h2>Dataset</h2>
+        <p>The review dataset is from <a href="https://www.yelp.com/dataset">Yelp</a> website, which includes
+            information on the business, the user, the review, and other aspects that Yelp provides. For this project,
+            we only use review data and rating data.</p>
 
-        <!-- Model -->
-        <h2>Model</h2>
-
-        <!-- Result -->
-        <h2>Result</h2>
+        <!-- Approach -->
+        <h2>Approach</h2>
+        <p><strong>- Data Pre-processing.</strong> Since data is clean enough, we don't do data cleaning for this
+            dataset. And there are 8021122 review data points in Yelp dataset, we choose data from 2004 to 2018 as
+            training data and choose data from 2019 as test data. Columns including Review, Stars, Year are extracted
+            from data frame.</p>
+        <p><strong>- Document-term Matrix.</strong> We consider two methods in <code>scikit-learn</code> to create document-term
+            matrix: <code>CountVectorizer</code> and <code>HashingVectorizer</code>. Since <code>CountVectorizer</code> requires holding the complete
+            vocabulary in memory, which is unsuitable for online learning, we choose <code>HashingVectorizer</code> instead and use
+            tokenizer from NLTK.</p>
+        <p><strong>- Model Selection.</strong> Three models including Multi-class Naive Bayes Classifier,
+            Multi-class Logistic Regression and LightGBM are built to do sentiment analysis for this 
+            classification problem. By parameter tuning, Multi-class Naive Bayes Classifier gives us 65.58% accuracy on
+            test data with alpha equal to 100. Logistic Regression gives us 74.81% accuracy on test set with penalty C
+            equal to 0.01. And LightGBM gives similar results as Logistic Regression, 25.41% error on test set. Since
+            LightGBM didn't give training method for online learning, while we can use <code>SGDClassifier</code> (equivalent to
+            Logistic Regression with SGD training) to do online learning, we choose Logistic Regression as our final
+            model. </p>
+        <p><strong>- Front End & Back End.</strong> We use <code>Bootstrap</code> to build front end and use <code>Flask</code> framework to build
+            back-end service. Also, we use <code>sqlite</code> to store new data uploaded by users.</p>
+        <p><strong>- Website Deployment.</strong> Finally, we deploy the website to <a
+                href="https://www.pythonanywhere.com/">PythonAnywhere</a>.</p>
 
         <!-- Further -->
         <h2>Further Discussion</h2>
-
-        <!-- Example -->
-        <h2>Example</h2>
-        <p>If you are interested in this project, you can try <a href="#">this</a> demo.</p>
+        <p>In the process of testing, we find most reviews would be predicted as 1 star or 5 star. It seems that the
+            model is more likely to predict a review as positive or negative. Actually, users tend to score 1 star or 5
+            star more, thus, the dataset is kind of unbalanced. However, using sampling methonds like upsampling and
+            downsampling don't improve the accuracy. Therefore, more efficient methods and better measurements could be
+            considered in the future.</p>
 
         <!-- Reference -->
         <h2>Reference</h2>
-        <p>Book</p>
-        <p>Code</p>
+        <p>
+            - Raschka, Sebastian. Python machine learning. Packt publishing ltd, 2015.<br />
+            - Jansen, Stefan. Machine Learning for Algorithmic Trading: Predictive Models to Extract Signals from Market
+            and Alternative Data for Systematic Trading Strategies with Python. Packt Publishing, 2020. <br />
+            - <a href="https://github.com/HaroldXu97/DR-sentimentanalysis">Github Code</a><br />
+        </p>
     </div>
 
 

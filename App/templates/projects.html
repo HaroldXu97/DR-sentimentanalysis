@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>Harold's Personal Website</title>
+    <title>Projects</title>
 </head>
 
 <body>
@@ -13,9 +13,9 @@
         <span class="navbar-brand" href="#">Harold</span>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="#">About</a>
-                <a class="nav-link active" href="#">Projects</a>
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="{{ url_for('index') }}">About</a>
+                <a class="nav-link active" href="{{ url_for('projects') }}">Projects</a>
+                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
             </div>
         </div>
     </nav>
@@ -28,32 +28,31 @@
     <div class="container">
         <!-- Project Card -->
         <div class="row justify-content-center">
-            <div class="col-sm-4">
-                <div class="card" style="height:25rem">
-                    <img src="..." class="card-img-top" alt="yelpsa">
+            <div class="card-deck" style="width: 75%">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='yelp.png') }}" class="card-img-top" alt="yelpsa">
                     <div class="card-body">
-                        <h5 class="card-title">Yelp Sentiment Analysis</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
+                        <h5 class="card-title">Yelp Review Sentiment Analysis</h5>
+                        <p class="card-text">Multi-class sentiment analysis based on Yelp business review dataset using
+                            Naive Bayes, Logistic Regression and LightGBM</p>
                     </div>
                     <div class="card-body">
-                        <a href="#" class="card-link">Report</a>
-                        <a href="#" class="card-link">Example</a>
+                        <a href="{{ url_for('sareport') }}" class="card-link">Report</a>
+                        <a href="{{ url_for('saform') }}" class="card-link">Example</a>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card" style="height:25rem">
-                    <img src="../static/pubg.jpg" class="card-img-top" alt="pubg">
+
+                <div class="card">
+                    <img src="{{ url_for('static', filename='pubg.jpg') }}" class="card-img-top" alt="pubg">
                     <div class="card-body">
                         <h5 class="card-title">PUBG Placement Prediction (Kaggle)</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
+                        <p class="card-text">
+                            Regression problem based on PUBG finish placement dataset using Lasso Regression, Random Forest,
+                            XGBoost, SVM, etc.
+                        </p>
                     </div>
                     <div class="card-body">
-                        <a href="#" class="card-link">Report</a>
+                        <a href="{{ url_for('pubgreport') }}" class="card-link">Report</a>
                     </div>
                 </div>
             </div>

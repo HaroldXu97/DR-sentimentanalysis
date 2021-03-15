@@ -50,36 +50,62 @@ class ReviewForm(Form):
                                 [validators.DataRequired(),
                                 validators.length(min=15)])
 
-### review form
+##### about
 @app.route('/')
+@app.route('/about')
 def index():
-    form = ReviewForm(request.form)
-    return render_template('reviewform.html', form=form)
+    return render_template('index.html')
 
-### result
-@app.route('/results', methods=['POST'])
-def results():
+##### projects
+@app.route('/projects')
+def projects():
+    return render_template('projects.html')
+
+##### contact
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+### PUBG
+# report
+@app.route('/projects/pubgreport')
+def pubgreport():
+    return render_template('pubgreport.html')
+
+### SA
+# report
+@app.route('/projects/sareport')
+def sareport():
+    return render_template('sareport.html')
+
+# form
+@app.route('/projects/saform')
+def saform():
+    form = ReviewForm(request.form)
+    return render_template('saform.html', form=form)
+
+# result
+@app.route('/projects/saresult', methods=['POST'])
+def saresults():
     form = ReviewForm(request.form)
     if request.method == 'POST' and form.validate():
         review = request.form['yelpreview']
         y, proba = classify(review)
-        return render_template('results.html',
+        return render_template('saresult.html',
                                 content=review,
                                 prediction=y,
                                 probability=proba)
-    return render_template('reviewform.html', form=form)
+    return render_template('saform.html', form=form)
 
-### feedback
-@app.route('/thanks', methods=['POST'])
-def feedback():
+# feedback
+@app.route('/projects/safb', methods=['POST'])
+def safb():
     feedback = request.form['feedback_button']
     review = request.form['review']
-
     y = int(feedback)
     train(review, y)
     sqlite_entry(db, review, y)
-    return render_template('thanks.html')
+    return render_template('safb.html')
 
 if __name__ == '__main__':
-    ### debug=True
     app.run(debug=True)
